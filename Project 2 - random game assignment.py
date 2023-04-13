@@ -6,6 +6,7 @@
 # 
 # 1) The random module
 import random
+import time
 
 # 2) Menu - Options
 menu = '''
@@ -36,7 +37,9 @@ class Player:
         self.hand = []
 
     def deal_card(self):
-        raise NotImplementedError
+        '''deals card to player hand'''
+        cardval = random.randint(1,10)
+        self.hand.append(cardval)
 
     def player_play(self):
         '''plays player turn'''
@@ -83,28 +86,40 @@ print('''
 in this blackjack: aces are just a 1, you cannot split hands or double down.
 All players will play against a dealer and whoever gets the closest to but below 21 will get $100
 the dealer isn't exactly a dealer in this sense, but just the game's character you're meant to beat.
+when you decide to quit the game, economy will be checked and winner will be declared.
 
 good luck, have fun!
 ''')
-      
-for player in players:
-    # skip over dealer in playerloop
-    if player.name == 'dealer':
-        continue
-    print(f"Current Player: {player.name}\nPlease make a selecion.")
-    
-    while True:
-        menu_select = num_query(menu)
 
-        if menu_select == 1:
-            player.player_play()
-            break
-        elif menu_select == 2:
-            print("\n--------------------------------------\nCurrent Leaderboard:")
-            print(leaderboard(players))
-            print("--------------------------------------")
-        elif menu_select == 3:
-            print("thanks for playing blackjck: modified. byebye!")
-            quit()
-        else:
-            print(f"invalid input, you entered: {menu_select}")
+global_loop = True
+while global_loop:
+    for player in players: # PRE ROUND loop
+        player.hand = [] # clears all player hands
+
+    for player in players: # PER ROUND loop
+        # skip over dealer in playerloop
+        if player.name == 'dealer':
+            continue
+        print(f"Current Player: {player.name}\nPlease make a selecion.")
+
+        # processes user's selection
+        while True:
+            menu_select = num_query(menu)
+
+            if menu_select == 1:
+                player.player_play()
+                break
+            elif menu_select == 2:
+                print("\n--------------------------------------\nCurrent Leaderboard:")
+                print(leaderboard(players))
+                print("--------------------------------------")
+            elif menu_select == 3:
+                print("game ending\ndrumroll pls.......")
+                for i in range(5):
+                    time.sleep(1)
+                    print("...")
+                print(f"The winner of the match was: {leaderboard(players)[0]}")
+                print("thanks for playing blackjck: modified. byebye!")
+                quit()
+            else:
+                print(f"invalid input, you entered: {menu_select}")

@@ -40,10 +40,15 @@ class Player:
         '''deals card to player hand'''
         cardval = random.randint(1,10)
         self.hand.append(cardval)
+        del cardval
 
     def player_play(self):
         '''plays player turn'''
-        raise NotImplementedError
+        self.deal_card()
+        self.deal_card()
+
+        print(f"here is your hand for the round: {self.hand}")
+        # ask for hit or stand in a loop
 
 def leaderboard(players):
     '''displays the leaderboard of the players'''
@@ -70,6 +75,7 @@ for i in range(1, num_of_players+1):
     player = Player(input(f"Enter name for player {i}: "))
     players.append(player)
     print(f"Player {i} has been added as: {player.name}\n")
+del num_of_players
 
 print("\nThe playerlist is as follows: ")
 player_index = 0
@@ -79,6 +85,7 @@ for player in players:
         continue
     player_index += 1
     print(f"Player{player_index})", player.name)
+del player_index
 
 # Introduces blackjack
 print("Welcome to blackjack: modified :)")
@@ -96,7 +103,12 @@ while global_loop:
     for player in players: # PRE ROUND loop
         player.hand = [] # clears all player hands
 
-    for player in players: # PER ROUND loop
+    players[0].deal_card()
+    players[0].deal_card()
+
+    print(f"The dealer's hand for the round: {players[0].hand}")
+
+    for player in players: # PER ROUND menu handler loop
         # skip over dealer in playerloop
         if player.name == 'dealer':
             continue

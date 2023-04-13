@@ -35,6 +35,8 @@ class Player:
         self.name = name
         self.bank = 0
         self.hand = []
+        self.is_blackjack = False
+        self.is_bust = False
 
     def deal_card(self):
         '''deals card to player hand'''
@@ -44,11 +46,44 @@ class Player:
 
     def player_play(self):
         '''plays player turn'''
-        self.deal_card()
-        self.deal_card()
+        while True:
+            if sum(self.hand) == 21:
+                print("You've got a blackjack!")
+                self.is_blackjack = True
+                break
+            elif sum(self.hand) > 21:
+                print(".. oooh you've got a bust")
+                self.is_bust = True
+                break
 
-        print(f"here is your hand for the round: {self.hand}")
+            print(f"this is the value of your hand: {sum(self.hand)}")
+            hit_or_stand = num_query('What would you like to do:\n1)Hit\n2)Stand\nMake Selection: ')
+
+            if hit_or_stand == 1:
+                self.deal_card()
+            elif hit_or_stand == 2:
+                break
+            else:
+                print(f'invalid input, you entered {hit_or_stand}')
         # ask for hit or stand in a loop
+
+def closest(players):
+    player_hands = dict()
+    for player in players:
+        player_hands[player.name] = sum(player.hand)
+
+    max_hand = None
+    for player in players:
+        if sum(player.hand) > 21:
+            continue
+        if not max_hand:
+            max_hand = players.index(player)
+        elif max_hand and sum(max_hand.hand) < sum(player.hand): #bigger than current max_hand
+            max_hand = players.index(player)
+    if max_hand == "":
+        print("all players are bust")
+        return "all players are bust"
+    return max_hand
 
 def leaderboard(players):
     '''displays the leaderboard of the players'''
@@ -57,7 +92,7 @@ def leaderboard(players):
     for player in players:
         player_banks[player.name] = player.bank
 
-    sorted_leaderboard = sorted(player_banks.items(), key=lambda x:x[1])
+    sorted_leaderboard = sorted(player_banks.items(), key=lambda mydictpair: mydictpair[1])
 
     return sorted_leaderboard
 
@@ -102,11 +137,14 @@ global_loop = True
 while global_loop:
     for player in players: # PRE ROUND loop
         player.hand = [] # clears all player hands
+        player.is_blackjack = False
+        player.is_bust = False
 
+    # deal dealer hand
     players[0].deal_card()
     players[0].deal_card()
 
-    print(f"The dealer's hand for the round: {players[0].hand}")
+    print(f"The dealer's hand for the round: {sum(players[0].hand)}")
 
     for player in players: # PER ROUND menu handler loop
         # skip over dealer in playerloop
@@ -119,6 +157,8 @@ while global_loop:
             menu_select = num_query(menu)
 
             if menu_select == 1:
+                player.deal_card()
+                player.deal_card()
                 player.player_play()
                 break
             elif menu_select == 2:
@@ -135,3 +175,9 @@ while global_loop:
                 quit()
             else:
                 print(f"invalid input, you entered: {menu_select}")
+        if player.is_blackjack:
+            print("A player has got a blackjack! The round ends. Player gets $100")
+            player.bank += 100
+            break
+        
+        closest(players)

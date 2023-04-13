@@ -1,3 +1,6 @@
+# Author: Aadil Hussain
+# Python Version: v3.10.4 64-bit
+
 # Now that you have learned to use the random module. Use that module to create your own game, or 
 # make the back-end of an existing game (ie. Rock/paper/scissors) . In this game you must use:
 # 
@@ -8,7 +11,7 @@ import random
 menu = '''
 1) Play Round
 2) See Leaderboard
-c) Exit
+3) Exit
 Make a selection: '''
 
 # 3) Create an A.I. to play against
@@ -30,10 +33,14 @@ class Player:
     def __init__(self, name: str):
         self.name = name
         self.bank = 0
+        self.hand = []
+
+    def deal_card(self):
+        raise NotImplementedError
 
     def player_play(self):
         '''plays player turn'''
-        return NotImplementedError
+        raise NotImplementedError
 
 def leaderboard(players):
     '''displays the leaderboard of the players'''
@@ -59,7 +66,7 @@ num_of_players = num_query("How many players will be playing: ")
 for i in range(1, num_of_players+1):
     player = Player(input(f"Enter name for player {i}: "))
     players.append(player)
-    print(f"Player {i} has been added as: {player.name}")
+    print(f"Player {i} has been added as: {player.name}\n")
 
 print("\nThe playerlist is as follows: ")
 player_index = 0
@@ -71,7 +78,7 @@ for player in players:
     print(f"Player{player_index})", player.name)
 
 # Introduces blackjack
-print("Welcome the blackjack: modified :)")
+print("Welcome to blackjack: modified :)")
 print('''
 in this blackjack: aces are just a 1, you cannot split hands or double down.
 All players will play against a dealer and whoever gets the closest to but below 21 will get $100
@@ -93,6 +100,11 @@ for player in players:
             player.player_play()
             break
         elif menu_select == 2:
-            leaderboard(players)
+            print("\n--------------------------------------\nCurrent Leaderboard:")
+            print(leaderboard(players))
+            print("--------------------------------------")
         elif menu_select == 3:
+            print("thanks for playing blackjck: modified. byebye!")
             quit()
+        else:
+            print(f"invalid input, you entered: {menu_select}")

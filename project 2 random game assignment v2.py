@@ -1,3 +1,6 @@
+# Author: Aadil Hussain
+# Python Version: v3.10.4 64-bit
+
 import random
 import time
 

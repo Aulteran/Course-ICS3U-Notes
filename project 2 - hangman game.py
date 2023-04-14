@@ -1,4 +1,3 @@
-# Author: Divyanshi Dave
 # Python Version: v3.11.2 64-bit
 
 # Import main modules

@@ -26,24 +26,24 @@ try:
     num_students = int(input("how many students in gradebook: "))
     assign1val = int(input('value for assignment 1: '))
     assign2val = int(input('value for assignment 2: '))
-except(ValueError):
+except ValueError:
     print("invalid input, restart")
 
 for i in range(1, num_students+1):
     try:
-        gradebook[input(f"Name for student{i}: ")] = {}
-    except(ValueError):
+        gradebook[input(f"Name for student{i}: ")] = {'Assign1': {}, 'Assign2': {}}
+    except ValueError:
         print("invalid input")
 
 
-for student in gradebook:
-    gradebook[student]['Assign1']['Mark'] = int(input("Mark for assignment 1: "))
-    gradebook[student]['Assign2']['Mark'] = int(input("Mark for assignment 2: "))
-    gradebook[student]['Assign1']['Percent Grade'] = (gradebook[student]['Assign1']['Mark'] / assign1val) * 100
-    gradebook[student]['Assign2']['Percent Grade'] = (gradebook[student]['Assign2']['Mark'] / assign2val) * 100
-    assign1_grades_list.append(gradebook[student]['Assign1']['Percent Grade'])
-    assign1_grades_list.append(gradebook[student]['Assign2']['Percent Grade'])
-
+for item in gradebook.items():
+    print(f"Current Student: {item[0]}")
+    item[1]['Assign1']['Mark'] = int(input("Mark for assignment 1: "))
+    item[1]['Assign2']['Mark'] = int(input("Mark for assignment 2: "))
+    item[1]['Assign1']['Percent Grade'] = (item[1]['Assign1']['Mark'] / assign1val) * 100
+    item[1]['Assign2']['Percent Grade'] = (item[1]['Assign2']['Mark'] / assign2val) * 100
+    assign1_grades_list.append(item[1]['Assign1']['Percent Grade'])
+    assign2_grades_list.append(item[1]['Assign2']['Percent Grade'])
 while True:
     do_sum = int(input("===GRADEBOOK===\n1. View Class Stats\n2. View Student\n3. Exit\nSelect: "))
     if do_sum == 1:
@@ -55,10 +55,12 @@ while True:
         print('Class Assign2 Median: ', statistics.median(assign2_grades_list))
     elif do_sum == 2:
         lookup = input("Student to lookup: ")
-        assignlookup = input("assignment to lookup: ")
-        print('Mark for Student: ', gradebook[assignlookup][lookup]['Mark'])
-        print('Grade for Student: ', gradebook[assignlookup][lookup]['Percent Grade'], '%')
+        assignlookup = input("assignment to lookup[Assign1/Assign2]: ")
+        print('Mark for Student: ', gradebook[lookup][assignlookup]['Mark'])
+        print('Grade for Student: ', gradebook[lookup][assignlookup]['Percent Grade'], '%')
     elif do_sum == 3:
         break
     else:
         print('Invalid Input')
+
+print("baibai, pls gimme good grade\np.s. was 1am making this, might be bad")

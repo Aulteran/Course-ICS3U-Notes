@@ -1,8 +1,11 @@
-# Project: Teacher Gradebook Assignment
-# Author: Aadil Hussain
-# Python Version: v3.10.11 64-bit
+'''
+Project: Teacher Gradebook Assignment
+Author: Aadil Hussain
+Python Version: v3.10.11 64-bi
+'''
 
-# Mr. Petrella is looking to create a program to help him tabulate the marks of an assignment that he has 
+# Mr. Petrella is looking to create a program to help him tabulate
+# the marks of an assignment that he has
 # marked. He comes to you looking for help. In this assignment you must have the following criteria:
 # 1) Ask the total number of students
 # 2) Ask the Total Assignment Value (what is it out of?) ie. 10

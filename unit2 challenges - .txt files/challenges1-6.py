@@ -84,7 +84,7 @@ names = names_file.read()
 print(names)
 exclude = input("enter name to exclude: ").capitalize()
 names2_file = open('unit2 challenges - .txt files/names2.txt', 'w')
-names = names.split('/n')
+names = names.split('\n')
 for name in names:
     if name != exclude: #idk why its not excluding, will figure out later :)
         names2_file.write(name + '\n')

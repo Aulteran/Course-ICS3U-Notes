@@ -2,6 +2,5 @@ John
 Mary
 Paul
 George
-Ringo
 Aadil
 

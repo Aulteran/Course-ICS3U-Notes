@@ -33,8 +33,7 @@ def remove_email(filepath, email_to_remove):
         for email in db_extracted:
             if email == email_to_remove:
                 continue
-            else:
-                fileopen.write(email)
+            fileopen.write(email)
         fileopen.close()
 
 menu = '''Welcome to Company Email Manager

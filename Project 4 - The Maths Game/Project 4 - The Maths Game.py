@@ -30,6 +30,7 @@ Python Version: 3.10.11
 # ]
 
 import csv
+import random
 
 menu = '''1) Take the Quiz
 2) View Results
@@ -66,3 +67,67 @@ def save_prog_db(filepath, data: dict):
         # Write data to csv and save
         filewriter.writerows(writelist)
         fileopen.close()
+
+# REPLAN:
+# I realized i misinterpreted the db instructions. 
+# Each name only needs one quiz data, not multiple quizzes. 
+# I'm going to redo this using append mode.
+# First: make quiz
+# Next: save quiz data in list
+# Last: append quiz data to file
+
+def get_num(prompt):
+    try:
+        return int(input(prompt))
+    except ValueError:
+        print('invalid input')
+
+def gen_question():
+    '''generates a random math question.
+    returns tuple with question and answer'''
+    operators = ['+', '-', '*', '/']
+    randnum1 = random.randint(0,9)
+    randnum2 = random.randint(0,9)
+    operator = random.choice(operators)
+    question_set = []
+    question_set.append(str(randnum1) + operator + str(randnum2))
+    # make correct answer
+    if operator == '+':
+        answer = randnum1 + randnum2
+    elif operator == '-':
+        answer = randnum1 - randnum2
+    elif operator == '*':
+        answer = randnum1 * randnum2
+    elif operator == '/':
+        answer = randnum1 / randnum2
+    else:
+        print('error: operator not valid')
+        quit()
+    question_set.append(answer)
+    
+    return tuple(question_set)
+
+def start_quiz(playername):
+    '''starts quiz with player name'''
+    print(f'alright, {playername} - you will have 5 questions.')
+    for i in range(0,3):
+        print(f"Question {i}")
+        user_ans = float(input())
+    raise NotImplementedError
+
+def view_scores(filepath):
+    '''get and display scores from csv db'''
+    raise NotImplementedError
+
+# while True:
+#     print("Welcome to the Math Game")
+#     menuselect = get_num(menu)
+#     if menuselect == 1:
+#         start_quiz(input('what is the player\'s name: ').capitalize())
+#     elif menuselect == 2:
+#         pass
+#     elif menuselect == 3:
+#         print("Bye Bye!")
+#         break
+#     else:
+#         print("invalid selection")

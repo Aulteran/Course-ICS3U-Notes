@@ -42,7 +42,7 @@ database = 'Project 4 - The Maths Game/mathgamedb.csv'
 
 def init_prog_db(filepath):
     '''pull any db info into program'''
-    with open(filepath, 'r') as fileopen:
+    with open(filepath, 'r', encoding='UTF-8') as fileopen:
         filereader = csv.reader(fileopen)
         file = {} # dict of db data to return
         for row in filereader:
@@ -73,7 +73,7 @@ def get_num(prompt):
 
 def save_score(filename, name, mark, outof, percent):
     '''Saves user score into db'''
-    with open(filename, 'a') as fileopen:
+    with open(filename, 'a', encoding='UTF-8') as fileopen:
         filewriter = csv.writer(fileopen)
         filewriter.writerow([name, mark, outof, percent])
         fileopen.close()

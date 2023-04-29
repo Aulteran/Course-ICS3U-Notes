@@ -152,6 +152,10 @@ def view_scores(filepath):
     '''get and display scores from csv db'''
     db = init_prog_db(filepath)
     print("\n------------------------\nScoreboard:")
+    if not db: #if db dict is empty
+        print("No scores found.")
+        print("------------------------")
+        return
     for player, playerdata in db.items():
         print(f"{player}: {playerdata[0]}/{playerdata[1]}, {playerdata[2]}%")
     print("------------------------")

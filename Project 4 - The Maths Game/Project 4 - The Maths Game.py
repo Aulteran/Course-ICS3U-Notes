@@ -271,7 +271,7 @@ while True:
         start_quiz(database, input('what is the player\'s name: ').capitalize())
     elif menuselect == 2: # View Results
         view_scores(database)
-    elif menuselect == 3:
+    elif menuselect == 3: # Open Admin Panel
         admin_panel(auth_admin())
     elif menuselect == 4: # Exit
         print("Bye Bye!")

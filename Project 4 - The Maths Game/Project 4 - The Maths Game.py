@@ -11,6 +11,17 @@ Python Version: 3.10.11
 # ***University Level***
 # Questions use ALL mathematical operations (+, - , x , /)
 
+import csv
+import random
+import time
+
+menu = '''1) Take the Quiz
+2) View Results
+3) Exit
+Make Selection: '''
+
+database = 'Project 4 - The Maths Game/mathgamedb.csv'
+
 # Planning (READ THIS):
 # i approched this a little differently than one might expect:
 # i pulled all csv data into the program at the beginning, and converted it into a dict-list nest
@@ -28,17 +39,6 @@ Python Version: 3.10.11
 # [
 # ['name', 'mark', 'outof', 'percentgrade']
 # ]
-
-import csv
-import random
-import time
-
-menu = '''1) Take the Quiz
-2) View Results
-3) Exit
-Make Selection: '''
-
-database = 'Project 4 - The Maths Game/mathgamedb.csv'
 
 def init_prog_db(filepath):
     '''pull any db info into program'''
@@ -101,7 +101,7 @@ def gen_question():
 
     return tuple(question_set)
 
-def start_quiz(playername):
+def start_quiz(filename, playername):
     '''starts quiz with player name'''
     print(f'alright, {playername} - you will have 5 questions.')
     score = 0
@@ -109,7 +109,7 @@ def start_quiz(playername):
         questionset = gen_question()
         print(f"Question {i}: {questionset[0]}")
         user_ans = float(input("Answer: "))
-        if user_ans == questionset[1]:
+        if user_ans == float(questionset[1]):
             print(f"Correct! {playername} - you got it right on question {i}")
             score += 1
         else:
@@ -117,8 +117,7 @@ def start_quiz(playername):
             print(f"The correct answer was {questionset[1]}")
     print("Quiz Complete")
     print("Saving Scores . . .")
-    global database
-    save_score(database, playername, score, 5, (score/5)*100)
+    save_score(filename, playername, score, 5, (score/5)*100)
     time.sleep(2)
     print("Saved!\n")
 
@@ -133,7 +132,7 @@ while True:
     print("Welcome to the Math Game")
     menuselect = get_num(menu)
     if menuselect == 1: # Take the Quiz
-        start_quiz(input('what is the player\'s name: ').capitalize())
+        start_quiz(database, input('what is the player\'s name: ').capitalize())
     elif menuselect == 2: # View Results
         view_scores(database)
     elif menuselect == 3: # Exit

@@ -165,19 +165,19 @@ def view_scores(filepath):
 # will make a password protected admin portion of the app to manage the db
 # Mr.P, you can try guessing the pwd and mess around with it. let's see how it goes.
 # PLANNING:
-# Will make API call to my RestAPI server to respond with an authentication key
-# if user password has been authenticated, then lets do it
+# make user pwd into api parsed json data. make api call to rest-api server with pwd
+# if api returns "match: true", then authenticated
 
 def call_api(url, data):
     '''calls my rest-api server with user pwd'''
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, headers=headers, data=json.dumps(data))
-    
+
     if response.status_code == 200:
         try:
             api_response = response.json()
             match_value = api_response.get('match')
-            
+
             if match_value is not None:
                 return match_value
             else:

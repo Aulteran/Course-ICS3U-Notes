@@ -128,7 +128,6 @@ def view_scores(filepath):
     print("Scoreboard:")
     for player, playerdata in db.items():
         print(f"{player}: {playerdata[0]}/{playerdata[1]}, {playerdata[2]}%")
-    raise NotImplementedError
 
 while True:
     print("Welcome to the Math Game")

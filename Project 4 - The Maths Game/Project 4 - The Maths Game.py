@@ -86,7 +86,10 @@ def get_num(prompt):
 
 def save_score(filename, name, mark, outof, percent):
     '''Saves user score into db'''
-    raise NotImplementedError
+    with open(filename, 'a') as fileopen:
+        filewriter = csv.writer(fileopen)
+        filewriter.writerow([name, mark, outof, percent])
+        fileopen.close()
 
 def gen_question():
     '''generates a random math question.

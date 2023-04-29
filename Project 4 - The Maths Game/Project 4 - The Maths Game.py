@@ -44,13 +44,15 @@ def init_prog_db(filepath):
     '''pull any db info into program'''
     with open(filepath, 'r') as fileopen:
         filereader = csv.reader(fileopen)
-        file = {}
+        file = {} # dict of db data to return
         for row in filereader:
-            if row == []:
+            if row == []: # skips over empty rows
                 continue
-            file[row[0]] = []
+            file[row[0]] = [] # creates list in player dict key
             for item in row:
-                file[row[0]].append = item
+                if item == row[0]: # to not add playername into list
+                    continue
+                file[row[0]].append(item) # adds playerdata into list
     return file
 
 # REPLAN:
@@ -93,7 +95,7 @@ def gen_question():
     elif operator == '*':
         answer = randnum1 * randnum2
     elif operator == '/':
-        answer = randnum1 / randnum2
+        answer = round(randnum1 / randnum2, 2)
     else:
         print('error: operator not valid')
         quit()
@@ -103,30 +105,36 @@ def gen_question():
 
 def start_quiz(filename, playername):
     '''starts quiz with player name'''
-    print(f'alright, {playername} - you will have 5 questions.')
+    print(f'Alright, {playername} - you will have 5 questions.')
     score = 0
     for i in range(0,5):
         questionset = gen_question()
-        print(f"Question {i}: {questionset[0]}")
-        user_ans = float(input("Answer: "))
+        print(f"Question {i+1}: {questionset[0]}")
+        while True:
+            try:
+                user_ans = float(input("Answer(Round to 2 Decimals): "))
+                break
+            except ValueError:
+                print('invalid input')
         if user_ans == float(questionset[1]):
-            print(f"Correct! {playername} - you got it right on question {i}")
+            print(f"Correct! {playername} - you got it right on question {i+1}")
             score += 1
         else:
-            print(f"Incorrect! {playername} - you got it wrong on question {i}")
+            print(f"Incorrect! {playername} - you got it wrong on question {i+1}")
             print(f"The correct answer was {questionset[1]}")
     print("Quiz Complete")
     print("Saving Scores . . .")
-    save_score(filename, playername, score, 5, (score/5)*100)
+    save_score(filename, playername, score, 5, round(score/5*100, 2))
     time.sleep(2)
     print("Saved!\n")
 
 def view_scores(filepath):
     '''get and display scores from csv db'''
     db = init_prog_db(filepath)
-    print("Scoreboard:")
+    print("\n------------------------\nScoreboard:")
     for player, playerdata in db.items():
         print(f"{player}: {playerdata[0]}/{playerdata[1]}, {playerdata[2]}%")
+    print("------------------------")
 
 while True:
     print("Welcome to the Math Game")

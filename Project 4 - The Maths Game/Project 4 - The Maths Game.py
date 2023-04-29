@@ -31,6 +31,7 @@ Python Version: 3.10.11
 
 import csv
 import random
+import time
 
 menu = '''1) Take the Quiz
 2) View Results
@@ -77,10 +78,15 @@ def save_prog_db(filepath, data: dict):
 # Last: append quiz data to file
 
 def get_num(prompt):
+    '''query num from user'''
     try:
         return int(input(prompt))
     except ValueError:
         print('invalid input')
+
+def save_score(filename, name, mark, outof, percent):
+    '''Saves user score into db'''
+    raise NotImplementedError
 
 def gen_question():
     '''generates a random math question.
@@ -104,30 +110,43 @@ def gen_question():
         print('error: operator not valid')
         quit()
     question_set.append(answer)
-    
+
     return tuple(question_set)
 
 def start_quiz(playername):
     '''starts quiz with player name'''
     print(f'alright, {playername} - you will have 5 questions.')
-    for i in range(0,3):
-        print(f"Question {i}")
-        user_ans = float(input())
-    raise NotImplementedError
+    score = 0
+    for i in range(0,5):
+        questionset = gen_question()
+        print(f"Question {i}: {questionset[0]}")
+        user_ans = float(input("Answer: "))
+        if user_ans == questionset[1]:
+            print(f"Correct! {playername} - you got it right on question {i}")
+            score += 1
+        else:
+            print(f"Incorrect! {playername} - you got it wrong on question {i}")
+            print(f"The correct answer was {questionset[1]}")
+    print("Quiz Complete")
+    print("Saving Scores . . .")
+    global database
+    save_score(database, playername, score, 5, (score/5)*100)
+    time.sleep(2)
+    print("Saved!\n")
 
 def view_scores(filepath):
     '''get and display scores from csv db'''
     raise NotImplementedError
 
-# while True:
-#     print("Welcome to the Math Game")
-#     menuselect = get_num(menu)
-#     if menuselect == 1:
-#         start_quiz(input('what is the player\'s name: ').capitalize())
-#     elif menuselect == 2:
-#         pass
-#     elif menuselect == 3:
-#         print("Bye Bye!")
-#         break
-#     else:
-#         print("invalid selection")
+while True:
+    print("Welcome to the Math Game")
+    menuselect = get_num(menu)
+    if menuselect == 1: # Take the Quiz
+        start_quiz(input('what is the player\'s name: ').capitalize())
+    elif menuselect == 2: # View Results
+        view_scores(database)
+    elif menuselect == 3: # Exit
+        print("Bye Bye!")
+        break
+    else: # Not valid option
+        print("invalid selection")

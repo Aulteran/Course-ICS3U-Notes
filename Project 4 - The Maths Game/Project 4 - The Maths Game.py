@@ -53,29 +53,14 @@ def init_prog_db(filepath):
                 file[row[0]].append = item
     return file
 
-def save_prog_db(filepath, data: dict):
-    '''save any db info into program'''
-    with open(filepath, 'w') as fileopen:
-        filewriter = csv.writer(fileopen)
-        # convert all data to csv compatible list
-        writelist = []
-        for item in data.items():
-            person = []
-            person.append(item[0])
-            for mark in item[1]:
-                person.append(mark)
-            writelist.append(person)
-        # Write data to csv and save
-        filewriter.writerows(writelist)
-        fileopen.close()
-
 # REPLAN:
-# I realized i misinterpreted the db instructions. 
-# Each name only needs one quiz data, not multiple quizzes. 
+# I realized i misinterpreted the db instructions.
+# Each name only needs one quiz data, not multiple quizzes.
 # I'm going to redo this using append mode.
 # First: make quiz
 # Next: save quiz data in list
 # Last: append quiz data to file
+# Can reuse init_prog_db to view scores
 
 def get_num(prompt):
     '''query num from user'''
@@ -139,6 +124,10 @@ def start_quiz(playername):
 
 def view_scores(filepath):
     '''get and display scores from csv db'''
+    db = init_prog_db(filepath)
+    print("Scoreboard:")
+    for player, playerdata in db.items():
+        print(f"{player}: {playerdata[0]}/{playerdata[1]}, {playerdata[2]}%")
     raise NotImplementedError
 
 while True:

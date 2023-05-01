@@ -1,6 +1,7 @@
 '''
 Author: Aadil Hussain
 Python Version: 3.10.11
+Required Modules: Windows OpenSSL 2020
 '''
 # Project 4 - THE MATHS GAME
 # Create a simple maths quiz that will ask the user for their

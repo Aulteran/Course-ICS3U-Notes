@@ -1,12 +1,18 @@
 # Created on Python 3.10.11
 # pip install tk
 
+# Create a program that will ask the user to enter a number in a box. When
+# they click on a button it will add that number to a total and display it in
+# another box. This can be repeated as many times as they want and keep
+# adding to the total. There should be another button that resets the total back
+# to 0 and empties the original text box, ready for them to start again.
+
 from tkinter import *
 from tkinter import ttk
 
 window = Tk()
 window.title("Counta Van Count")
-window.geometry("400x400")
+window.geometry("300x100")
 
 count = 0
 

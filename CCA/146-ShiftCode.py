@@ -17,8 +17,16 @@ Make Selection: '''
 # Both cases will be allowed
 # Punctuation will not be allowed
 
-lower_case = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-upper_case = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+import string
+from itertools import cycle
+
+LOWER_CASE = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
+              'n','o','p','q','r','s','t','u','v','w','x','y','z']
+UPPER_CASE = ['A','B','C','D','E','F','G','H','I','J','K','L','M',
+              'N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+CIRC_LOWER = cycle(LOWER_CASE)
+CIRC_UPPER = cycle(UPPER_CASE)
+# SORT BACKWARDS AND CREATE BACKWARDS CYCLES
 
 def get_num(prompt):
     '''returns a number input'''
@@ -27,10 +35,27 @@ def get_num(prompt):
     except ValueError:
         print("invalid input")
 
-def encode_msg(message, encryption):
+def encode_msg(message, encoding):
+    '''takes string in and encodes it'''
+    # checks if punctuation in msg
+    for letter in message:
+        if letter in string.punctuation:
+            print("Punctuation is not allowed in message")
+            return
+
+    # separate words into list items
+    msg_list = message.split()
+
+    # shuffle letters
+    for word in msg_list:
+        for letter in word:
+            if letter in LOWER_CASE:
+                letter = next(CIRC_LOWER)
+
     raise NotImplementedError
 
 def decode_msg(message, encryption):
+    '''decodes string input'''
     raise NotImplementedError
 
 while True:
@@ -48,3 +73,10 @@ while True:
         break
 
 print("Thank you for using ShiftCode v10.2")
+
+letter = "a"
+
+if letter in LOWER_CASE:
+    letter = next(CIRC_LOWER)
+
+print(letter)

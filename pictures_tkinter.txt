@@ -1,0 +1,45 @@
+#Tkinter requires full file name for my file organization!
+
+from tkinter import *
+
+def clicked():
+    sel = selectName.get()
+    if sel == 'Bob':
+        photo = PhotoImage(file = 'C:/Users/tmacaraeg1206/OneDrive - Brant Haldimand Norfolk CDSB/ICS3U1 2 Introduction to Computer Science Grade 11 2023/Unit 2/Lessons/bobross.gif')
+        photobox.image = photo
+    elif sel == 'Sue':
+        photo = PhotoImage(file = 'C:/Users/tmacaraeg1206/OneDrive - Brant Haldimand Norfolk CDSB/ICS3U1 2 Introduction to Computer Science Grade 11 2023/Unit 2/Lessons/sue.gif')
+        photobox.image = photo
+    elif sel == 'Tim':
+        photo = PhotoImage(file = 'C:/Users/tmacaraeg1206/OneDrive - Brant Haldimand Norfolk CDSB/ICS3U1 2 Introduction to Computer Science Grade 11 2023/Unit 2/Lessons/tim.gif')
+        photobox.image = photo
+    else:
+        photo = PhotoImage(file = 'C:/Users/tmacaraeg1206/OneDrive - Brant Haldimand Norfolk CDSB/ICS3U1 2 Introduction to Computer Science Grade 11 2023/Unit 2/Lessons/marsRover.gif')
+        photobox.image = photo
+    photobox['image'] = photo
+    photo.update()
+
+window = Tk()
+window.title('dropdown list')
+window.geometry('800x600')
+window.configure(background = 'light green')
+
+window.wm_iconbitmap('C:/Users/tmacaraeg1206/OneDrive - Brant Haldimand Norfolk CDSB/ICS3U1 2 Introduction to Computer Science Grade 11 2023/Unit 2/Lessons/logo.ico') #change icon
+#path of icon -------^ (in this case it's in same folder, so just file name)
+
+#add image
+photo = PhotoImage(file = 'C:/Users/tmacaraeg1206/OneDrive - Brant Haldimand Norfolk CDSB/ICS3U1 2 Introduction to Computer Science Grade 11 2023/Unit 2/Lessons/marsRover.gif')
+photobox = Label (window, image = photo)
+photobox.image = photo #keeps a temporary reference of the photo in Tkinter
+photobox.place(x = 0, y = 0)
+
+#dropdown list
+selectName = StringVar(window)
+selectName.set('Select Menu')
+namesList = OptionMenu(window,selectName,'Bob','Sue','Tim')
+namesList.place(x = 0, y = 300)
+
+button1 = Button(text = 'Click to display picture', command = clicked)
+button1.place (x = 0, y = 400)
+
+window.mainloop()

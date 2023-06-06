@@ -1,0 +1,28 @@
+from tkinter import *
+from tkinter import ttk
+from tkinter import messagebox
+
+def on_click():
+    messagebox.showinfo('Warning','This action cannot be reversed') #1 type of popup, this one is just a warning and etc
+
+window = Tk()
+window.geometry('700x250')
+
+but1 = Button(window, text = 'Open Popup', command = on_click).place(x = 300, y = 0) #instead of new line you can put it here
+
+window.mainloop()
+
+root = Tk()
+
+result = messagebox.askquestion('Installation','Do you want to install?')
+#yes or no question, stores result as variable
+
+if result == 'yes':
+    lab1 = Label(root, text = 'Enjoy the malware kiddo! 💀')
+    lab1.grid(row = 0, column = 0) #.pack works too, places in rectangular boxes
+else:
+    root.destroy() #close tkinter window
+
+root.mainloop()
+
+#there are 5 dif types of message boxes

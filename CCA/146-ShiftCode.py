@@ -35,6 +35,11 @@ def get_num(prompt):
     except ValueError:
         print("invalid input")
 
+def cycle_next(init_val, cycle_list, cycle_amt):
+    final_val = ""
+    raise NotImplementedError
+    return final_val
+
 def encode_msg(message, encoding):
     '''takes string in and encodes it'''
     # checks if punctuation in msg

@@ -4,7 +4,8 @@ Python Version: 3.10.4
 '''
 
 # A shift code is where a message can be easily encoded and is one of the simplest codes to use.
-# Each letter is moved forwards through the alphabet a set number of leter represented by a new letter.
+# Each letter is moved forwards through the alphabet a set number of letter
+# represented by a new letter.
 # For instance, "abc" becomes "bcd" when the code is shifted by one
 
 # You will need to create a program which wil display the following menu:
@@ -24,9 +25,6 @@ LOWER_CASE = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
               'n','o','p','q','r','s','t','u','v','w','x','y','z']
 UPPER_CASE = ['A','B','C','D','E','F','G','H','I','J','K','L','M',
               'N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-CIRC_LOWER = cycle(LOWER_CASE)
-CIRC_UPPER = cycle(UPPER_CASE)
-# SORT BACKWARDS AND CREATE BACKWARDS CYCLES
 
 def get_num(prompt):
     '''returns a number input'''
@@ -35,12 +33,29 @@ def get_num(prompt):
     except ValueError:
         print("invalid input")
 
-def cycle_next(init_val, cycle_list, cycle_amt):
-    final_val = ""
-    raise NotImplementedError
+def cycle_next(init_val: str, cycle_list: list, cycle_amt: int):
+    # find index of init in list
+    index = cycle_list.index(init_val)
+    # type of case processing
+    uppercase = bool(cycle_list[0] == "A")
+    # for loop against cycle amt
+    # every time, if amt index = 'z'
+    # subtract cycle amt from amt completed
+    # go on and continue remaining amt at 'a'
+    for i in range(0, cycle_amt):
+        index += 1
+        val = cycle_list[index-1]
+        if val.lower() == 'z':
+            remaining_cycle = cycle_amt - i
+            for remaining in range(0, remaining_cycle):
+                val = 'a'
+                if uppercase:
+                    val = "A"
+                val = cycle_list[remaining]
+    final_val = str(val)
     return final_val
 
-def encode_msg(message, encoding):
+def encode_msg(message: str, encoding: int):
     '''takes string in and encodes it'''
     # checks if punctuation in msg
     for letter in message:
@@ -53,35 +68,37 @@ def encode_msg(message, encoding):
 
     # shuffle letters
     for word in msg_list:
+        numletters = 0
+        newword_list = []
         for letter in word:
             if letter in LOWER_CASE:
-                letter = next(CIRC_LOWER)
+                letter = cycle_next(letter, LOWER_CASE, encoding)
+            elif letter in UPPER_CASE:
+                letter = cycle_next(letter, UPPER_CASE, encoding)
+            newword_list.append(letter)
+            numletters += 1
+        print(newword_list)
 
-    raise NotImplementedError
+    print(msg_list)
 
 def decode_msg(message, encryption):
     '''decodes string input'''
     raise NotImplementedError
 
-while True:
-    user_selection = get_num(menu)
+encode_msg('z', 3)
 
-    if user_selection == 1: # Make a code
-        code_msg = input("Enter the string to encode: ")
-        shift = get_num("Enter an encoding number: ")
-        print(encode_msg(code_msg, shift))
-    elif user_selection == 2: # Decode a message
-        coded_msg = input("Enter the string to decode: ")
-        shift = get_num("Enter the encoding number: ")
-        print(decode_msg(coded_msg, shift))
-    elif user_selection == 3: # Quit
-        break
+# while True:
+#     user_selection = get_num(menu)
 
-print("Thank you for using ShiftCode v10.2")
+#     if user_selection == 1: # Make a code
+#         code_msg = input("Enter the string to encode: ")
+#         shift = get_num("Enter an encoding number: ")
+#         print(encode_msg(code_msg, shift))
+#     elif user_selection == 2: # Decode a message
+#         coded_msg = input("Enter the string to decode: ")
+#         shift = get_num("Enter the encoding number: ")
+#         print(decode_msg(coded_msg, shift))
+#     elif user_selection == 3: # Quit
+#         break
 
-letter = "a"
-
-if letter in LOWER_CASE:
-    letter = next(CIRC_LOWER)
-
-print(letter)
+# print("Thank you for using ShiftCode v10.2")

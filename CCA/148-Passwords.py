@@ -38,6 +38,8 @@ menu = '''
 import csv
 import string
 
+FILEPATH = "CCA\\user_credentials.csv"
+
 # Function to check if a password meets the requirements
 def is_password_strong(password):
     score = 0
@@ -59,7 +61,7 @@ def create_user_id():
     '''to create a new user'''
     user_id = input("Enter a user ID: ")
 
-    with open('user_credentials.csv', 'r') as file:
+    with open(FILEPATH, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
             if row[0] == user_id:
@@ -72,7 +74,7 @@ def create_user_id():
         print("Weak password. Please choose a stronger password.")
         return
 
-    with open('user_credentials.csv', 'a', newline='') as file:
+    with open(FILEPATH, 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([user_id, password])
 
@@ -82,7 +84,7 @@ def change_password():
     '''to change a pwd'''
     user_id = input("Enter the user ID: ")
 
-    with open('user_credentials.csv', 'r') as file:
+    with open(FILEPATH, 'r') as file:
         reader = csv.reader(file)
         rows = list(reader)
 
@@ -96,7 +98,7 @@ def change_password():
 
             rows[i][1] = new_password
 
-            with open('user_credentials.csv', 'w', newline='') as file:
+            with open(FILEPATH, 'w', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerows(rows)
 
@@ -107,7 +109,7 @@ def change_password():
 
 def display_user_ids():
     '''display all user ids'''
-    with open('user_credentials.csv', 'r') as file:
+    with open(FILEPATH, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
             print(row[0])

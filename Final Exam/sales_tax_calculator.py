@@ -6,7 +6,7 @@ Python Version: 3.11.4
 import time
 
 SALES_ITEMS = ['iPad', 'Macbook', 'iPhone', 'Samsung']
-ITEM_PRICES = {'iPad': 520.70, 'Macbook': 1050.50, "iPhone": 799.55, "Samsung": 699.23}
+ITEM_PRICES = {'iPad': 519.00, 'Macbook': 1050.50, "iPhone": 799.55, "Samsung": 699.23}
 
 MENU = f'''
 ====Sales Tax Calc====

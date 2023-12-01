@@ -1,7 +1,33 @@
-# Ch1
-# Ch2
-# Ch3
-# Ch4
+# Challenge1
+two_d = [
+    [2,5,8],
+    [3,7,4],
+    [1,6,9],
+    [4,2,1]
+    ]
+print("EVERYTHING IS INDEXED AT 1")
+
+# Challenge2
+user_row = int(input("enter a row: "))
+user_col = int(input("enter a column: "))
+print(two_d[user_row+1][user_col+1])
+
+# Challenge3
+user_row_disp = int(input("which row would u like to see??: "))
+print(two_d[user_row_disp+1])
+
+# Challenge4
+user_col_disp = int(input("which col would u like to see?: "))
+print(two_d[user_row_disp+1][user_col_disp+1])
+user_val_chng = input("would u like to change this value?[Y/N]: ")
+
+if user_val_chng.upper()[0] == 'Y':
+    chng_to = int(input("what would u like to change it to?[NUMS ONLY]: "))
+    two_d[user_row_disp+1][user_col_disp+1] = chng_to
+    print(two_d[user_row_disp+1])
+else:
+    print("ok lols")
+
 
 # Challenge 5
 # Create the following using a 2D

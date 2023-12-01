@@ -1,3 +1,8 @@
+# Ch1
+# Ch2
+# Ch3
+# Ch4
+
 # Challenge 5
 # Create the following using a 2D
 # dictionary showing the sales each

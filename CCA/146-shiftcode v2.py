@@ -1,3 +1,5 @@
+# THIS IS A FAILED ATTEMPT. CODE DOES NOT WORK. REFER TO 146-ShiftCode.py FOR WORKING SCRIPT
+
 def encode_message(message, shift):
     encoded_message = ""
     for char in message:
